@@ -1,9 +1,8 @@
 <!--TODO
 created: 06/27/2024 author of todo: brandon
-
-1. figure out how to apply multiple class overrides based on one condition.
-   this is for current day in calendar. want to make white text and more transparent bg color
-2. functionality- will have to query database and display all events on proper dates. don't forget -->
+updated: 09/03/2024
+1. create a sign-in form for members to digitally sign in
+-->
 
 <template>
   <div class="flex justify-center items-center min-h-fit">
@@ -26,12 +25,6 @@ created: 06/27/2024 author of todo: brandon
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <!-- <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 19l-7-7 7-7"
-              /> -->
               <polygon
                 points="8,0 24,12 8,24"
                 transform="scale(-1, 1) translate(-24, 0)"
@@ -51,7 +44,7 @@ created: 06/27/2024 author of todo: brandon
           </button>
         </div>
       </div>
-      <div class="grid grid-cols-7 gap-0.5 rounded-xs">
+      <div class="grid grid-cols-7 gap-0.5 rounded-xs text-overflow">
         <!-- day headers -->
         <div
           v-for="dayName in days"
@@ -67,21 +60,22 @@ created: 06/27/2024 author of todo: brandon
           :key="'prev-' + index"
           class="relative text-center rounded-lg py-2 focus:outline-none border-r border-b border-gray-300 h-24 bg-prev-next-month text-[#b3b2b2]"
         >
-          <div class="absolute top-0 left-0 ml-1 mt-1 text-sm rounded-lg p-1">
+        <div class="justify-between">
+          <div class="absolute top-0 left-0 ml-1 mt-1 mb-max text-sm rounded-lg p-1">
             {{ pmDay.date() }}
           </div>
 
           <!-- display events for previous month's days -->
           <div
             v-if="getEventsForDate(pmDay).length"
-            class="absolute inset-x-0 bottom-0 ml-1 mb-1"
+            class="absolute inset-x-0 bottom-0 ml-7 mb-1 mr-3"
           >
             <a
               v-for="event in getEventsForDate(pmDay)"
               :key="event.title"
               :href="'#event-' + event.title.replace(/\s+/g, '-').toLowerCase()"
               :class="{ 'line-through': isPastEvent(event.datetime) }"
-              class="text-xs"
+              class="text-xs ellipsis-multiline"
             >
               {{ event.title }}
               <br >
@@ -90,13 +84,14 @@ created: 06/27/2024 author of todo: brandon
             </a>
           </div>
         </div>
+        </div>
 
         <!-- current month's days -->
         <!-- curreently !isCurrentMonth(date) is redundent since isToday(date) compares all daymonthyear-->
         <div
           v-for="date in daysInMonth"
           :key="date.format('YYYY-MM-DD')"
-          class="relative bg-current-month rounded-lg text-[#333333] text-center py-2 focus:outline-none border-r border-b h-24"
+          class="relative bg-current-month rounded-lg text-[#333333] text-center py-2 focus:outline-none border-r border-b h-24 overflow-hidden"
         >
           <div
             :class="{
@@ -109,7 +104,7 @@ created: 06/27/2024 author of todo: brandon
           </div>
           <div
             v-if="getEventsForDate(date).length"
-            class="absolute inset-x-0 bottom-0 ml-1 mb-1"
+            class="absolute inset-x-0 bottom-0 ml-7 mb-1 mr-3"
           >
             <!-- could be anchor tag link to scroll down page for event description -->
 
@@ -119,7 +114,7 @@ created: 06/27/2024 author of todo: brandon
               :key="event.title"
               :href="'#event-' + event.title.replace(/\s+/g, '-').toLowerCase()"
               :class="{ 'line-through': isPastEvent(event.datetime) }"
-              class="font-arimo text-xs text-[#333333]"
+              class="font-arimo text-xs text-[#333333] ellipsis-multiline"
             >
               {{ event.title }}
               <br >
@@ -142,14 +137,14 @@ created: 06/27/2024 author of todo: brandon
           <!-- display events for next month's days -->
           <div
             v-if="getEventsForDate(nmDay).length"
-            class="absolute inset-x-0 bottom-0 ml-1 mb-1"
+            class="absolute inset-x-0 bottom-0 ml-7 mb-1 mr-3"
           >
             <a
               v-for="event in getEventsForDate(nmDay)"
               :key="event.title"
               :href="'#event-' + event.title.replace(/\s+/g, '-').toLowerCase()"
               :class="{ 'line-through': isPastEvent(event.datetime) }"
-              class="text-xs flexbox text-[#b3b2b2]"
+              class="text-xs flexbox text-[#b3b2b2] ellipsis-multiline"
             >
               {{ event.title }}
               <br >
@@ -212,6 +207,7 @@ const today = ref(dayjs().startOf('day'));
 const currentMonth = ref(dayjs().month());
 const currentYear = ref(dayjs().year());
 
+// static data so no ref() here
 const months = [
   'January',
   'February',
@@ -227,6 +223,7 @@ const months = [
   'December',
 ];
 const days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+
 const events = ref([
   {
     title: '1st General Meeting',
@@ -239,19 +236,19 @@ const events = ref([
     description: 'PLACEHOLDER',
   },
   {
-    title: 'Custom ARAM with Officers',
+    title: 'Custom ARAM with Officers AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFGRHUIEJAHTGRUIESHGUIRHESIL;GREUIGSHGRLUIEGUIEHTG UIERH',
     datetime: dayjs('2024-07-30T21:00:00'),
     description: 'PLACEHOLDER',
   },
 
   {
-    title: 'try not to play BMwukong or league while everyone else works to meet your deadline you are actively ignoring',
+    title: 'black myth wukong no hit run',
     datetime: dayjs('2024-08-25T19:00:00'),
     description: 'PLACEHOLDER',
   },
   {
     title: 'obamna',
-    datetime: '2024-06-30T21:00:00',
+    datetime: dayjs('2024-06-30T21:00:00'),
     description: 'PLACEHOLDER',
   },
   {
@@ -272,7 +269,8 @@ const togglePastEvents = () => {
   showPastEvents.value = !showPastEvents.value;
 };
 
-const daysInMonth = computed(() => {
+// logic to help determine what days from prev or next months need to be shown on current month calendar
+const daysInMonth = computed(() => { // gets current month days and populates array 
   const startOfMonth = dayjs()
     .year(currentYear.value)
     .month(currentMonth.value)
@@ -281,6 +279,7 @@ const daysInMonth = computed(() => {
     .year(currentYear.value)
     .month(currentMonth.value)
     .endOf('month');
+
   const daysArray = [];
 
   for (let i = startOfMonth.date(); i <= endOfMonth.date(); i++) {
@@ -290,6 +289,7 @@ const daysInMonth = computed(() => {
   return daysArray;
 });
 
+// gets previous and next month from displayed. so that prev/next buttons works for any month
 const prevMonth = () => {
   if (currentMonth.value === 0) {
     currentMonth.value = 11;
@@ -307,6 +307,8 @@ const nextMonth = () => {
     currentMonth.value++;
   }
 };
+
+// based on current month, get any days that should be displayed. e.g. july 30th 2024 and sept 1st 2024 should both be displayed on august 2024
 const previousMonthDays = computed(() => {
   const startOfMonth = dayjs()
     .year(currentYear.value)
@@ -345,8 +347,8 @@ const nextMonthDays = computed(() => {
   return nextMonthDaysArray;
 });
 
+// function for red circle highlight on current day
 const isToday = (date) => date.isSame(dayjs(), 'day');
-//const isCurrentMonth = (date) => date.month() === currentMonth.value;
 
 // get events for days displayed on calendar
 const getEventsForDate = (date) => {
@@ -355,3 +357,17 @@ const getEventsForDate = (date) => {
   );
 };
 </script>
+
+
+// unfortunate custom css tailwind doesn't work?
+/* Custom CSS for multiline text truncation with ellipsis */
+<style scoped>
+.ellipsis-multiline {
+  display: -webkit-box;
+  text-align: start;
+  line-clamp: 5; /* Adjust this number based on how many lines you want to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
