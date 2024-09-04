@@ -1,3 +1,8 @@
+# CALENDAR BRANCH
+### This branch was created to push a nearly complete, but bugged calendar component
+The issue was that one of my mock data events was not a dayjs object.
+Thus, failing the loading of July and June 2024 calendars
+
 [![Vue][Vue.js]][Vue-url]
 [![Nuxt][Nuxt]][nuxt-url]
 [![GNU GPL v3][license-shield]][license-url]
