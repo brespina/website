@@ -3,37 +3,6 @@
 The issue was that one of my mock data events was not a dayjs object.
 Thus, failing the loading of July and June 2024 calendars
 
-[![Vue][Vue.js]][Vue-url]
-[![Nuxt][Nuxt]][nuxt-url]
-[![GNU GPL v3][license-shield]][license-url]
-
-<a href="https://cooggaming.com">
-    <img src="https://i.imgur.com/wiqxFs4.png" alt="Logo" width="200">
-</a>
-
-This project, developed with Nuxt, constitutes the frontend of the Coog Gaming website. The design and functionality you experience are powered by this technology. As Free Software, it is fully Open Source, welcoming and depending on contributions from the community. This collaborative spirit ensures the website continually evolves and improves, driven by the efforts and input of people like you. Your participation is vital to its ongoing development and success.
-
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
-<br />
-
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# pnpm
-pnpm install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# pnpm
-pnpm run dev
-```
 
 ## License
 
