@@ -218,7 +218,7 @@ const matches = ref([
     teamA: { name: 'University of Houston', logo: coogLogo },
     teamB: { name: 'University of Opponents 9', logo: bLogo },
     details: 'NIGHT OF THE FORT',
-    datetime: dayjs('2024-10-10T19:00:00'), // Upcoming
+    datetime: dayjs('2024-11-17T07:30:00'), // Upcoming
     status: 'UPCOMING',
   },
   {
@@ -226,7 +226,7 @@ const matches = ref([
     teamA: { name: 'University of Houston', logo: coogLogo },
     teamB: { name: 'University of Opponents 10', logo: bLogo },
     details: 'Catching All of Them',
-    datetime: dayjs('2024-10-10T20:00:00'), // Upcoming
+    datetime: dayjs('2024-11-17T07:30:00'), // Upcoming
     status: 'UPCOMING',
   },
   {
@@ -234,7 +234,7 @@ const matches = ref([
     teamA: { name: 'University of Houston', logo: coogLogo },
     teamB: { name: 'University of Opponents 11', logo: bLogo },
     details: 'Gather the Magicks',
-    datetime: dayjs('2024-10-10T21:30:00'), // Upcoming
+    datetime: dayjs('2024-11-18T17:30:00'), // Upcoming
     status: 'UPCOMING',
   },
 ]);

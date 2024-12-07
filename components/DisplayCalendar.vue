@@ -1,13 +1,11 @@
-<!-- DisplayCalendar.vue
+<!-- 
+DisplayCalendar.vue
 
-created: 06/27/2024 author of todo: brandon
-updated: 10/08/2024 (added test qr code tied to every event)
-
+created: 06/27/2024 
 -->
-<!--TODO
-  1. figure out qrcode generation display with admin linking qrcode
-  2. only display qrcode when admin links correct google form
-  3. allow admin to close qr code 
+<!--
+	TODO current date: 2024/12/05
+	need to add events.end_time where applicable. mock data was not accurate to schema
 -->
 
 <template>
@@ -80,7 +78,7 @@ updated: 10/08/2024 (added test qr code tied to every event)
             >
               <a
                 v-for="event in getEventsForDate(pmDay)"
-                :key="event.id"
+                :key="event.event_id"
                 :class="{ 'line-through': isPastEvent(event.datetime) }"
                 class="text-xs ellipsis-multiline"
               >
@@ -88,11 +86,11 @@ updated: 10/08/2024 (added test qr code tied to every event)
                   {{ event.title }}
                 </span>
                 <span>
-                  {{ event.datetime.format('h:mm A') }}
-                </span>
+					{{ event.datetime.format('h:mm A') }}
+				</span>
               </a>
             </div>
-          </div>
+			</div>
         </div>
 
         <!-- current month's days -->
@@ -117,10 +115,10 @@ updated: 10/08/2024 (added test qr code tied to every event)
           >
             <!-- could be anchor tag link to scroll down page for event description -->
 
-            <!-- might need to add event id for primary key to match schemaa -->
+            <!-- might need to add event event_id for primary key to match schemaa -->
             <a
               v-for="event in getEventsForDate(date)"
-              :key="event.id"
+              :key="event.event_id"
               :class="{ 'line-through': isPastEvent(event.datetime) }"
               class="font-arimo text-xs font-bold text-[#333333] ellipsis-multiline"
             >
@@ -151,7 +149,7 @@ updated: 10/08/2024 (added test qr code tied to every event)
           >
             <a
               v-for="event in getEventsForDate(nmDay)"
-              :key="event.id"
+              :key="event.event_id"
               :class="{ 'line-through': isPastEvent(event.datetime) }"
               class="text-xs flexbox text-[#b3b2b2] ellipsis-multiline"
             >
@@ -176,13 +174,13 @@ updated: 10/08/2024 (added test qr code tied to every event)
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
     <div
       v-for="event in futureEvents"
-      :key="event.id"
+      :key="event.event_id"
       @click="handleEventClick(event)"
     >
       <div
         class="bg-current-month h-full text-black border border-gray-300 rounded-md overflow-hidden"
       >
-        <!-- Content container with padding and spacing -->
+        <!-- content container with padding and spacing -->
         <div class="p-4">
           <h2
             class="text-lg font-arimo font-bold mb-2 overflow-hidden text-ellipsis whitespace-nowrap"
@@ -196,8 +194,10 @@ updated: 10/08/2024 (added test qr code tied to every event)
             Date: {{ event.datetime.format('dddd, MMMM D, YYYY') }}
           </p>
           <p class="text-sm mb-1">
-            Time: {{ event.datetime.format('h:mm A') }}
-          </p>
+		  Time: {{ event.datetime.format('h:mm A') }} - {{ event.end_time.format('h:mm A') }}
+		  </p>
+          <p class="text-sm">Location: {{ event.location }}</p>
+		  <br>
           <p class="text-sm">{{ event.description }}</p>
         </div>
       </div>
@@ -220,7 +220,7 @@ updated: 10/08/2024 (added test qr code tied to every event)
 
   <!-- display past events -->
   <div v-if="showPastEvents" class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-    <div v-for="event in pastEvents" :key="event.id">
+    <div v-for="event in pastEvents" :key="event.event_id">
       <div
         class="bg-prev-next-month h-full text-black border border-gray-300 rounded-md overflow-hidden"
       >
@@ -235,8 +235,10 @@ updated: 10/08/2024 (added test qr code tied to every event)
             Date: {{ event.datetime.format('dddd, MMMM D, YYYY') }}
           </p>
           <p class="text-sm mb-1">
-            Time: {{ event.datetime.format('h:mm A') }}
+		  Time: {{ event.datetime.format('h:mm A') }} - {{ event.end_time.format('h:mm A') }}
           </p>
+          <p class="text-sm">Location: {{ event.location }}</p>
+		  <br>
           <p class="text-sm">{{ event.description }}</p>
         </div>
       </div>
@@ -276,121 +278,144 @@ const months = [
   'May',
   'June',
   'July',
-  'August',
-  'September',
+  'August', 'September',
   'October',
   'November',
   'December',
 ];
 const days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
 
+// will have to convert string passed to frontend with api get_events get request
 const events = ref([
   {
-    id: '1',
+    event_id: '1',
     title: '1st General Meeting',
+    description: 'DESC PLACEHOLDER',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-08-22T20:00:00'),
-    description: 'PLACEHOLDER',
+	end_time: dayjs('22:00:00'),
   },
   {
-    id: '2',
+    event_id: '2',
     title: 'a duuuu',
+    description: 'DESC PLACEHOLDER',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-08-13T20:00:00'),
-    description: 'PLACEHOLDER',
+	end_time: dayjs('22:00:00'),
   },
   {
-    id: '3',
+    event_id: '3',
     title:
       'Custom ARAM with Officers AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFGRHUIEJAHTGRUIESHGUIRHESIL;GREUIGSHGRLUIEGUIEHTG UIERH',
+    description: 'DESC PLACEHOLDER',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-09-03T19:50:00'),
-    description: 'PLACEHOLDER',
+	end_time: dayjs('2024-09-03T22:00:00'),
   },
 
   {
-    id: '4',
+    event_id: '4',
     title: 'black myth wukong no hit run',
+    description: 'DESC PLACEHOLDER',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-08-25T19:00:00'),
-    description: 'PLACEHOLDER',
+	end_time: dayjs('2024-08-25T22:00:00'),
   },
   {
-    id: '5',
+    event_id: '5',
     title: 'obamna',
+    description: 'DESC PLACEHOLDER',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-06-30T21:00:00'),
-    description: 'PLACEHOLDER',
+	end_time: dayjs('2024-06-30T21:00:00'),
   },
   {
-    id: '6',
+    event_id: '6',
     title: 'demure',
+    description: 'DESC PLACEHOLDER',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-08-01T21:00:00'),
-    description: 'PLACEHOLDER',
+	end_time: dayjs('2024-08-01T22:00:00'),
   },
   {
-    id: '7',
+    event_id: '7',
     title: 'Community Game Night',
+    description: 'Join us for a fun game night with various board games and video games.',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-09-05T18:00:00'),
-    description:
-      'Join us for a fun game night with various board games and video games.',
+	end_time: dayjs('2024-09-05T22:00:00'),
   },
   {
-    id: '8',
+    event_id: '8',
     title: 'Tech Talk: AI Innovations',
+    description: 'A discussion on the latest innovations in AI technology with industry experts.',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-09-10T17:30:00'),
-    description:
-      'A discussion on the latest innovations in AI technology with industry experts.',
+	end_time: dayjs('2024-09-10T22:00:00'),
   },
   {
-    id: '9',
+    event_id: '9',
     title: 'Weekend Workshop: Coding for Beginners',
+    description: 'A hands-on workshop for beginners to learn the basics of coding.',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-09-15T10:00:00'),
-    description:
-      'A hands-on workshop for beginners to learn the basics of coding.',
+	end_time: dayjs('2024-09-15T22:00:00'),
   },
   {
-    id: '10',
+    event_id: '10',
     title: 'Charity Run for Health',
+    description: 'Participate in a charity run to support health-related causes.',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-09-20T08:00:00'),
-    description:
-      'Participate in a charity run to support health-related causes.',
+	end_time: dayjs('2024-09-20T22:00:00'),
   },
   {
-    id: '11',
+    event_id: '11',
     title: 'Monthly Book Club Meeting',
-    datetime: dayjs('2024-09-25T19:00:00'),
     description: 'Discuss the latest book with fellow book enthusiasts.',
+	location: 'LOC PLACEHOLDER',
+    datetime: dayjs('2024-09-25T19:00:00'),
+	end_time: dayjs('2024-09-25T22:00:00'),
   },
   {
-    id: '12',
+    event_id: '12',
     title: 'Tech Conference 2024',
+    description: 'Join us for a tech conference featuring keynote speakers and breakout sessions.',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-10-01T09:00:00'),
-    description:
-      'Join us for a tech conference featuring keynote speakers and breakout sessions.',
+	end_time: dayjs('2024-10-01T22:00:00'),
   },
   {
-    id: '13',
+    event_id: '13',
     title: 'Halloween Costume Party',
+    description: 'Dress up and enjoy a spooky evening with music, games, and prizes.',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-10-31T20:00:00'),
-    description:
-      'Dress up and enjoy a spooky evening with music, games, and prizes.',
+	end_time: dayjs('2024-10-31T22:00:00'),
   },
   {
-    id: '14',
+    event_id: '14',
     title: 'Thanksgiving Potluck',
+    description: 'Celebrate Thanksgiving with a potluck dinner. Bring a dish to share!',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-11-28T12:00:00'),
-    description:
-      'Celebrate Thanksgiving with a potluck dinner. Bring a dish to share!',
+	end_time: dayjs('2024-11-28T22:00:00'),
   },
   {
-    id: '15',
+    event_id: '15',
     title: 'Winter Wonderland Gala',
+    description: 'Enjoy an elegant evening at our Winter Wonderland Gala with fine dining and entertainment.',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-12-15T18:00:00'),
-    description:
-      'Enjoy an elegant evening at our Winter Wonderland Gala with fine dining and entertainment.',
+	end_time: dayjs('2024-12-15T22:00:00'),
   },
   {
-    id: '16',
+    event_id: '16',
     title: "New Year's Eve Celebration",
+    description: 'Ring in the new year with a party featuring live music, dancing, and a countdown to midnight.',
+	location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-12-31T22:00:00'),
-    description:
-      'Ring in the new year with a party featuring live music, dancing, and a countdown to midnight.',
+	end_time: dayjs('2024-12-31T23:00:00'),
   },
 ]);
 
@@ -518,3 +543,4 @@ const pastEvents = computed(() => {
   text-overflow: ellipsis;
 }
 </style>
+
