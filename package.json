@@ -15,6 +15,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@heroicons/vue": "^2.2.0",
     "@nuxt/eslint": "^0.3.13",
     "@opentelemetry/api": "1.8.0",
     "@vueuse/core": "^11.1.0",

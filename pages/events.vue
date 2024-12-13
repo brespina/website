@@ -9,6 +9,9 @@
 </template>
 
 <!-- importing component calendar -->
-<script setup>
+<script setup lang="ts">
 import DisplayCalendar from '~/components/DisplayCalendar.vue';
+definePageMeta({
+  layout: 'default'
+});
 </script>

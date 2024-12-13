@@ -31,7 +31,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 
 // reactive state for games array with mock data for players
@@ -87,4 +87,8 @@ const games = ref([
 
 //too lazy to change the rows
 games.value.sort((a, b) => a.name.localeCompare(b.name));
+
+definePageMeta({
+  layout: 'default'
+});
 </script>

@@ -1,44 +1,18 @@
 <template>
-  <!-- header container using grid layout with tailwind -->
-  <!-- top navigation with social icons, logo, and additional nav icons -->
   <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-    <!-- social media icons on the left -->
     <div class="flex space-x-6 items-center">
       <a
-        href="https://x.com/coogesports"
+        v-for="social in socialLinks"
+        :key="social.platform"
+        :href="social.url"
         target="_blank"
         rel="noopener noreferrer"
         class="text-2xl text-secondary"
       >
-        <font-awesome-icon :icon="['fab', 'x-twitter']" />
-      </a>
-      <a
-        href="https://www.instagram.com/coogesports/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-2xl text-secondary"
-      >
-        <font-awesome-icon :icon="['fab', 'instagram']" />
-      </a>
-      <a
-        href="https://www.twitch.tv/coogesports"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-2xl text-secondary"
-      >
-        <font-awesome-icon :icon="['fab', 'twitch']" />
-      </a>
-      <a
-        href="https://discord.com/invite/coog-gaming-154441500950921216"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-2xl text-secondary"
-      >
-        <font-awesome-icon :icon="['fab', 'discord']" />
+        <font-awesome-icon :icon="social.icon" />
       </a>
     </div>
 
-    <!-- logo centered in the middle -->
     <a href="/" class="flex justify-center">
       <img
         src="/assets/img/coogesports_w_text.png"
@@ -47,17 +21,7 @@
       >
     </a>
 
-    <!-- additional nav icons on the right -->
     <div class="flex space-x-6 items-center justify-end">
-      <!-- <a href="#home" class="text-2xl text-secondary">
-        <font-awesome-icon :icon="['fas', 'bag-shopping']" />
-      </a>
-      <a href="#about" class="text-2xl text-secondary">
-        <font-awesome-icon :icon="['fas', 'gear']" />
-      </a>
-      <a href="#about" class="text-2xl text-secondary">
-        <font-awesome-icon :icon="['fas', 'rss']" />
-      </a> -->
       <a href="/login" class="text-2xl justify-self-end text-secondary">
         <font-awesome-icon :icon="['fas', 'user']" />
       </a>
@@ -69,53 +33,56 @@
     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-white" >
     <div class="flex justify-center mb-4 space-x-6">
       <NuxtLink
-        to="/"
+        v-for="link in navLinks"
+        :key="link.to"
+        :to="link.to"
         exact-active-class="border border-primary"
         class="text-white uppercase px-4 py-2"
       >
-        Home
-      </NuxtLink>
-      <NuxtLink
-        to="/teams"
-        exact-active-class="border border-primary"
-        class="text-white uppercase px-4 py-2"
-      >
-        Teams
-      </NuxtLink>
-      <NuxtLink
-        to="/events"
-        exact-active-class="border border-primary"
-        class="text-white uppercase px-4 py-2"
-      >
-        Events
-      </NuxtLink>
-      <NuxtLink
-        to="/matches"
-        exact-active-class="border border-primary"
-        class="text-white uppercase px-4 py-2"
-      >
-        Matches
-      </NuxtLink>
-      <NuxtLink
-        to="/media"
-        exact-active-class="border border-primary"
-        class="text-white uppercase px-4 py-2"
-      >
-        Media
-      </NuxtLink>
-      <NuxtLink
-        to="/contact"
-        exact-active-class="border border-primary"
-        class="text-white uppercase px-4 py-2"
-      >
-        Contact
+        {{ link.label }}
       </NuxtLink>
     </div>
   </div>
 </template>
 
+<script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+const socialLinks = [
+  {
+    platform: 'twitter',
+    url: 'https://x.com/coogesports',
+    icon: ['fab', 'x-twitter'],
+  },
+  {
+    platform: 'instagram',
+    url: 'https://www.instagram.com/coogesports/',
+    icon: ['fab', 'instagram'],
+  },
+  {
+    platform: 'twitch',
+    url: 'https://www.twitch.tv/coogesports',
+    icon: ['fab', 'twitch'],
+  },
+  {
+    platform: 'discord',
+    url: 'https://discord.com/invite/coog-gaming-154441500950921216',
+    icon: ['fab', 'discord'],
+  },
+];
+
+const navLinks = [
+  { to: '/', label: 'Home' },
+  { to: '/teams', label: 'Teams' },
+  { to: '/events', label: 'Events' },
+  { to: '/matches', label: 'Matches' },
+  { to: '/media', label: 'Media' },
+  { to: '/contact', label: 'Contact' },
+];
+</script>
+
 <style scoped>
 .nuxt-link-exact-active {
-  border: 1px solid var(--primary-color); /* adjust this to your actual primary color variable or value */
+  border: 1px solid var(--primary-color); /* no idea why i needed this, too scared to change */
 }
 </style>

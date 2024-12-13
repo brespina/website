@@ -74,7 +74,7 @@ i have taken it upon myself to redo this page. -brespina -->
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import { useAxios } from '@vueuse/integrations/useAxios'; // Assuming you use Axios
 
@@ -109,121 +109,11 @@ const signup = async () => {
     console.error('An error occurred', error);
   }
 };
+definePageMeta({
+  layout: 'default'
+});
 </script>
 
 <style scoped>
 /* add if needed */
 </style>
-
-<!-- <template>
-  <div class="signup-page">
-    <div class="signup-container">
-      <form @submit.prevent="signup">
-        <h2 class="signup-title">Sign Up</h2>
-        <p class="signup-subtitle">
-          Create an account using your email and set a password<br >
-        </p>
-        <div class="input-group">
-          <label for="email">Email</label>
-          <input id="email" v-model="email" type="email" required >
-        </div>
-        <div class="input-group">
-          <label for="cougarnet-id">CougarNet ID</label>
-          <input id="cougarnet-id" v-model="cougarnetId" type="text" required >
-        </div>
-        <div class="input-group">
-          <label for="password">Password</label>
-          <input id="password" v-model="password" type="password" required >
-        </div>
-        <div class="input-group">
-          <label for="confirm-password">Confirm Password</label>
-          <input id="confirm-password" v-model="confirmPassword" type="password" required >
-        </div>
-        <button type="submit">Sign Up</button>
-        <div class="login-link">
-          Already have an account? <a href="/login">Sign In!</a>
-        </div>
-      </form>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  layout: 'signup-layout',
-  data() {
-    return {
-      email: '',
-      cougarnetId: '',
-      password: '',
-      confirmPassword: ''
-    };
-  },
-  methods: {
-    async signup() {
-      if (this.password !== this.confirmPassword) {
-        // Handle password mismatch error
-        console.error('Passwords do not match');
-        return;
-      }
-      try {
-        await this.$axios.post('/api/signup', {
-          email: this.email,
-          cougarnetId: this.cougarnetId,
-          password: this.password
-        });
-        // Redirect or show a success message after signup
-      } catch (error) {
-        console.error(error);
-        // Handle signup error
-      }
-    }
-  }
-}
-</script>
-
-<style scoped>
-.signup-page {
-@apply w-screen h-[80vh] bg-gray-600 flex justify-center items-center overflow-hidden;
-background-image: url('/assets/img/loginbg.png');
-background-size: 35%;
-background-repeat: no-repeat;
-background-position: center center;
-}
-
-.signup-container {
-@apply w-[400px] h-[70vh] p-5 rounded-lg bg-black bg-opacity-75 shadow-lg text-white;
-}
-
-.signup-title {
-@apply text-center mb-0 text-[40px] font-sans;
-}
-
-.signup-subtitle {
-@apply text-center mb-2 text-sm text-white font-sans;
-}
-
-.input-group {
-@apply mb-1;
-}
-
-label {
-@apply block mb-1 text-white;
-}
-
-input {
-@apply w-full h-[5vh] p-2 border border-gray-300 rounded-lg bg-white text-gray-900;
-}
-
-button {
-@apply w-full p-2 mt-2 bg-red-600 rounded-lg text-white text-base cursor-pointer hover:bg-red-700;
-}
-
-.login-link {
-@apply text-center mt-2 text-white;
-}
-
-.login-link a {
-@apply text-red-600 no-underline hover:underline;
-}
-</style> -->

@@ -30,3 +30,6 @@ logs
 
 venv/
 venv/*
+
+.vscode/
+.vscode/*

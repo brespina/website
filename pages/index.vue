@@ -255,7 +255,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted } from 'vue';
 import prezImg from '@/assets/img/officer1.jpg';
 import vpImg from '@/assets/img/officer2.jpg';
@@ -346,6 +346,10 @@ onMounted(() => {
   script.src = 'https://platform.twitter.com/widgets.js';
   script.async = true;
   document.body.appendChild(script);
+});
+
+definePageMeta({
+  layout: 'default',
 });
 </script>
 

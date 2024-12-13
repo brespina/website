@@ -188,17 +188,17 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
 import testImg from '@/assets/img/media_page/1355994.jpg';
 import testImg2 from '@/assets/img/media_page/test_img2.jpg';
 import testImg3 from '@/assets/img/media_page/test_img3.jpg';
 
 // reactive variable to store the URL of the expanded image
-const expandedImageUrl = ref(null);
+const expandedImageUrl = ref<string | null>(null);
 
 // function to expand the image
-const expandImage = (url) => {
+const expandImage = (url: string) => {
   expandedImageUrl.value = url;
 };
 
@@ -206,10 +206,16 @@ const expandImage = (url) => {
 const closeExpandedImage = () => {
   expandedImageUrl.value = null;
 };
+
+type MediaItem = {
+  id: number;
+  year: string;
+  image: string;
+}
 // Reactive state
 const years = ref(['2023 - 2024', '2024 - 2025', '2025 - 2026', '2026 - 2027']);
 const selectedYear = ref('2024 - 2025');
-const mediaItems = ref([]);
+const mediaItems = ref<MediaItem[]>([]);
 const currentPage = ref(1);
 const itemsPerPage = 9;
 const totalPages = computed(() =>
@@ -260,7 +266,7 @@ function fetchMediaItems() {
 }
 
 // set default
-function setYear(year) {
+function setYear(year: string) {
   selectedYear.value = year;
   currentPage.value = 1;
 }
@@ -277,11 +283,15 @@ function previousPage() {
   }
 }
 
-function goToPage(page) {
+function goToPage(page: number) {
   currentPage.value = page;
 }
 
 onMounted(() => {
   fetchMediaItems();
+});
+
+definePageMeta({
+  layout: 'default'
 });
 </script>

@@ -104,7 +104,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue';
 
 // either need to pull image from DB or have hardcoded logos for all teams
@@ -244,7 +244,7 @@ const matches = ref([
 
 // need to dynamically calc daylight savings to know to display CDT or CST year to year
 // calculate the second Sunday in March
-const getDstStartDate = (year) => {
+const getDstStartDate = (year: number) => {
   let date = dayjs(`March 1, ${year}`);
   while (date.day() !== 0) {
     // find the first Sunday
@@ -254,7 +254,7 @@ const getDstStartDate = (year) => {
 };
 
 // calculate the first Sunday in November
-const getDstEndDate = (year) => {
+const getDstEndDate = (year: number) => {
   let date = dayjs(`November 1, ${year}`);
   while (date.day() !== 0) {
     // find the first Sunday
@@ -265,7 +265,7 @@ const getDstEndDate = (year) => {
 
 // if DST -> CDT. if not -> CST
 // Centeral Daylight Time vs Central Standard Time
-const isDaylightSavingTime = (date) => {
+const isDaylightSavingTime = (date: dayjs.Dayjs) => {
   const year = date.year();
   const dstStart = getDstStartDate(year);
   const dstEnd = getDstEndDate(year);
@@ -273,7 +273,7 @@ const isDaylightSavingTime = (date) => {
   return date.isBetween(dstStart, dstEnd, 'day', '[)');
 };
 
-const getTimeZoneAbbreviation = (datetime) => {
+const getTimeZoneAbbreviation = (datetime: dayjs.Dayjs) => {
   const isDST = isDaylightSavingTime(datetime);
   return isDST ? 'CDT' : 'CST';
 };
@@ -325,12 +325,12 @@ const filteredMatches = computed(() => {
   );
 });
 
-const setFilter = (filter) => {
+const setFilter = (filter: string) => {
   selectedFilter.value = filter;
 };
 
 // get background image based on game type of match
-const getBackgroundClass = (game) => {
+const getBackgroundClass = (game: string) => {
   switch (game) {
     case 'LoL':
       return 'bg-lol-bg bg-cover bg-center ';
@@ -358,4 +358,7 @@ const getBackgroundClass = (game) => {
       return 'bg-gray-800'; // default
   }
 };
+definePageMeta({
+  layout: 'default'
+});
 </script>

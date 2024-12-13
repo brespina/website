@@ -86,11 +86,11 @@ created: 06/27/2024
                   {{ event.title }}
                 </span>
                 <span>
-					{{ event.datetime.format('h:mm A') }}
-				</span>
+                  {{ event.datetime.format('h:mm A') }}
+                </span>
               </a>
             </div>
-			</div>
+          </div>
         </div>
 
         <!-- current month's days -->
@@ -172,11 +172,7 @@ created: 06/27/2024
 
   <!-- Display future events in a grid layout -->
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-    <div
-      v-for="event in futureEvents"
-      :key="event.event_id"
-      @click="handleEventClick(event)"
-    >
+    <div v-for="event in futureEvents" :key="event.event_id">
       <div
         class="bg-current-month h-full text-black border border-gray-300 rounded-md overflow-hidden"
       >
@@ -187,17 +183,18 @@ created: 06/27/2024
           >
             {{ event.title }}
           </h2>
-          <p class="font-bold text-secondary text-md mb-1 cursor-pointer">
+          <!-- <p class="font-bold text-secondary text-md mb-1 cursor-pointer">
             | QR-Code |
-          </p>
+          </p> -->
           <p class="text-sm mb-1">
             Date: {{ event.datetime.format('dddd, MMMM D, YYYY') }}
           </p>
           <p class="text-sm mb-1">
-		  Time: {{ event.datetime.format('h:mm A') }} - {{ event.end_time.format('h:mm A') }}
-		  </p>
+            Time: {{ event.datetime.format('h:mm A') }} -
+            {{ event.end_time.format('h:mm A') }}
+          </p>
           <p class="text-sm">Location: {{ event.location }}</p>
-		  <br>
+          <br >
           <p class="text-sm">{{ event.description }}</p>
         </div>
       </div>
@@ -205,7 +202,7 @@ created: 06/27/2024
   </div>
 
   <!-- qrcode component call -->
-  <QRCode :show="showQrCode" :data="googleFormUrl" @close="closeQrCode" />
+  <!-- <QRCode :show="showQrCode" :data="googleFormUrl" @close="closeQrCode" /> -->
 
   <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" >
 
@@ -235,10 +232,11 @@ created: 06/27/2024
             Date: {{ event.datetime.format('dddd, MMMM D, YYYY') }}
           </p>
           <p class="text-sm mb-1">
-		  Time: {{ event.datetime.format('h:mm A') }} - {{ event.end_time.format('h:mm A') }}
+            Time: {{ event.datetime.format('h:mm A') }} -
+            {{ event.end_time.format('h:mm A') }}
           </p>
           <p class="text-sm">Location: {{ event.location }}</p>
-		  <br>
+          <br >
           <p class="text-sm">{{ event.description }}</p>
         </div>
       </div>
@@ -246,24 +244,24 @@ created: 06/27/2024
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue';
 import dayjs from 'dayjs';
-import QRCode from '~/components/QrCode.vue';
+// import QRCode from '~/components/QrCode.vue';
 
-const showQrCode = ref(false);
-const googleFormUrl =
-  'https://docs.google.com/forms/d/e/1FAIpQLSfMdLMAN-vGrqv828vVxpweRaD4yJm3RWm7Zb55KT8ke_7Ysg/viewform?usp=sf_link';
+// const showQrCode = ref(false);
+// const googleFormUrl =
+//   'https://docs.google.com/forms/d/e/1FAIpQLSfMdLMAN-vGrqv828vVxpweRaD4yJm3RWm7Zb55KT8ke_7Ysg/viewform?usp=sf_link';
 
-// Function to handle event click and show QR code
-const handleEventClick = () => {
-  showQrCode.value = true; // Show QR code modal when an event is clicked
-};
+// // Function to handle event click and show QR code
+// const handleEventClick = () => {
+//   showQrCode.value = true; // Show QR code modal when an event is clicked
+// };
 
-// Function to close the QR code modal
-const closeQrCode = () => {
-  showQrCode.value = false; // Hide QR code modal when close is emitted
-};
+// // Function to close the QR code modal
+// const closeQrCode = () => {
+//   showQrCode.value = false; // Hide QR code modal when close is emitted
+// };
 // reactive state for current date
 const today = ref(dayjs().startOf('day'));
 const currentMonth = ref(dayjs().month());
@@ -278,7 +276,8 @@ const months = [
   'May',
   'June',
   'July',
-  'August', 'September',
+  'August',
+  'September',
   'October',
   'November',
   'December',
@@ -291,136 +290,145 @@ const events = ref([
     event_id: '1',
     title: '1st General Meeting',
     description: 'DESC PLACEHOLDER',
-	location: 'LOC PLACEHOLDER',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-08-22T20:00:00'),
-	end_time: dayjs('22:00:00'),
+    end_time: dayjs('22:00:00'),
   },
   {
     event_id: '2',
     title: 'a duuuu',
     description: 'DESC PLACEHOLDER',
-	location: 'LOC PLACEHOLDER',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-08-13T20:00:00'),
-	end_time: dayjs('22:00:00'),
+    end_time: dayjs('22:00:00'),
   },
   {
     event_id: '3',
     title:
       'Custom ARAM with Officers AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFGRHUIEJAHTGRUIESHGUIRHESIL;GREUIGSHGRLUIEGUIEHTG UIERH',
     description: 'DESC PLACEHOLDER',
-	location: 'LOC PLACEHOLDER',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-09-03T19:50:00'),
-	end_time: dayjs('2024-09-03T22:00:00'),
+    end_time: dayjs('2024-09-03T22:00:00'),
   },
 
   {
     event_id: '4',
     title: 'black myth wukong no hit run',
     description: 'DESC PLACEHOLDER',
-	location: 'LOC PLACEHOLDER',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-08-25T19:00:00'),
-	end_time: dayjs('2024-08-25T22:00:00'),
+    end_time: dayjs('2024-08-25T22:00:00'),
   },
   {
     event_id: '5',
     title: 'obamna',
     description: 'DESC PLACEHOLDER',
-	location: 'LOC PLACEHOLDER',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-06-30T21:00:00'),
-	end_time: dayjs('2024-06-30T21:00:00'),
+    end_time: dayjs('2024-06-30T21:00:00'),
   },
   {
     event_id: '6',
     title: 'demure',
     description: 'DESC PLACEHOLDER',
-	location: 'LOC PLACEHOLDER',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-08-01T21:00:00'),
-	end_time: dayjs('2024-08-01T22:00:00'),
+    end_time: dayjs('2024-08-01T22:00:00'),
   },
   {
     event_id: '7',
     title: 'Community Game Night',
-    description: 'Join us for a fun game night with various board games and video games.',
-	location: 'LOC PLACEHOLDER',
+    description:
+      'Join us for a fun game night with various board games and video games.',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-09-05T18:00:00'),
-	end_time: dayjs('2024-09-05T22:00:00'),
+    end_time: dayjs('2024-09-05T22:00:00'),
   },
   {
     event_id: '8',
     title: 'Tech Talk: AI Innovations',
-    description: 'A discussion on the latest innovations in AI technology with industry experts.',
-	location: 'LOC PLACEHOLDER',
+    description:
+      'A discussion on the latest innovations in AI technology with industry experts.',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-09-10T17:30:00'),
-	end_time: dayjs('2024-09-10T22:00:00'),
+    end_time: dayjs('2024-09-10T22:00:00'),
   },
   {
     event_id: '9',
     title: 'Weekend Workshop: Coding for Beginners',
-    description: 'A hands-on workshop for beginners to learn the basics of coding.',
-	location: 'LOC PLACEHOLDER',
+    description:
+      'A hands-on workshop for beginners to learn the basics of coding.',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-09-15T10:00:00'),
-	end_time: dayjs('2024-09-15T22:00:00'),
+    end_time: dayjs('2024-09-15T22:00:00'),
   },
   {
     event_id: '10',
     title: 'Charity Run for Health',
-    description: 'Participate in a charity run to support health-related causes.',
-	location: 'LOC PLACEHOLDER',
+    description:
+      'Participate in a charity run to support health-related causes.',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-09-20T08:00:00'),
-	end_time: dayjs('2024-09-20T22:00:00'),
+    end_time: dayjs('2024-09-20T22:00:00'),
   },
   {
     event_id: '11',
     title: 'Monthly Book Club Meeting',
     description: 'Discuss the latest book with fellow book enthusiasts.',
-	location: 'LOC PLACEHOLDER',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-09-25T19:00:00'),
-	end_time: dayjs('2024-09-25T22:00:00'),
+    end_time: dayjs('2024-09-25T22:00:00'),
   },
   {
     event_id: '12',
     title: 'Tech Conference 2024',
-    description: 'Join us for a tech conference featuring keynote speakers and breakout sessions.',
-	location: 'LOC PLACEHOLDER',
+    description:
+      'Join us for a tech conference featuring keynote speakers and breakout sessions.',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-10-01T09:00:00'),
-	end_time: dayjs('2024-10-01T22:00:00'),
+    end_time: dayjs('2024-10-01T22:00:00'),
   },
   {
     event_id: '13',
     title: 'Halloween Costume Party',
-    description: 'Dress up and enjoy a spooky evening with music, games, and prizes.',
-	location: 'LOC PLACEHOLDER',
+    description:
+      'Dress up and enjoy a spooky evening with music, games, and prizes.',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-10-31T20:00:00'),
-	end_time: dayjs('2024-10-31T22:00:00'),
+    end_time: dayjs('2024-10-31T22:00:00'),
   },
   {
     event_id: '14',
     title: 'Thanksgiving Potluck',
-    description: 'Celebrate Thanksgiving with a potluck dinner. Bring a dish to share!',
-	location: 'LOC PLACEHOLDER',
+    description:
+      'Celebrate Thanksgiving with a potluck dinner. Bring a dish to share!',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-11-28T12:00:00'),
-	end_time: dayjs('2024-11-28T22:00:00'),
+    end_time: dayjs('2024-11-28T22:00:00'),
   },
   {
     event_id: '15',
     title: 'Winter Wonderland Gala',
-    description: 'Enjoy an elegant evening at our Winter Wonderland Gala with fine dining and entertainment.',
-	location: 'LOC PLACEHOLDER',
+    description:
+      'Enjoy an elegant evening at our Winter Wonderland Gala with fine dining and entertainment.',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-12-15T18:00:00'),
-	end_time: dayjs('2024-12-15T22:00:00'),
+    end_time: dayjs('2024-12-15T22:00:00'),
   },
   {
     event_id: '16',
     title: "New Year's Eve Celebration",
-    description: 'Ring in the new year with a party featuring live music, dancing, and a countdown to midnight.',
-	location: 'LOC PLACEHOLDER',
+    description:
+      'Ring in the new year with a party featuring live music, dancing, and a countdown to midnight.',
+    location: 'LOC PLACEHOLDER',
     datetime: dayjs('2024-12-31T22:00:00'),
-	end_time: dayjs('2024-12-31T23:00:00'),
+    end_time: dayjs('2024-12-31T23:00:00'),
   },
 ]);
 
 // method to check if an event is past today
-const isPastEvent = (eventDate) => {
+const isPastEvent = (eventDate: dayjs.Dayjs) => {
   return dayjs(eventDate).isBefore(today.value, 'day');
 };
 
@@ -510,10 +518,10 @@ const nextMonthDays = computed(() => {
 });
 
 // function for red circle highlight on current day
-const isToday = (date) => date.isSame(dayjs(), 'day');
+const isToday = (date: dayjs.Dayjs) => date.isSame(dayjs(), 'day');
 
 // get events for days displayed on calendar
-const getEventsForDate = (date) => {
+const getEventsForDate = (date: dayjs.Dayjs) => {
   return events.value.filter((event) =>
     dayjs(event.datetime).isSame(date, 'day')
   );
@@ -528,7 +536,7 @@ const futureEvents = computed(() => {
 const pastEvents = computed(() => {
   return events.value
     .filter((event) => dayjs().isAfter(event.datetime))
-    .sort((a, b) => b.datetime - a.datetime);
+    .sort((a, b) => b.datetime.valueOf() - a.datetime.valueOf());
 });
 </script>
 
@@ -543,4 +551,3 @@ const pastEvents = computed(() => {
   text-overflow: ellipsis;
 }
 </style>
-
