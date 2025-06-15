@@ -271,25 +271,29 @@ import apexLogo from '/assets/img/apex-logo.png';
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+const officerRoles = ['President', 'Vice President', 'Treasurer', 'Secretary']
+const coordRoles = ['Event Coordinator', 'Community Manager', 'Strategy Lead']
+
+// later, replace the discord usernaame with api call
 const officers = ref([
   {
     name: 'Harris "Axe" Ali',
-    position: 'President',
+    position: officerRoles[0],
     imgSrc: prezImg,
   },
   {
     name: 'Katherine "katwnotail" Delgado',
-    position: 'Vice President',
+    position: officerRoles[1],
     imgSrc: vpImg,
   },
   {
     name: 'Hunter "Apollo" Johnson',
-    position: 'Treasurer',
+    position: officerRoles[2],
     imgSrc: treasurerImg,
   },
   {
     name: 'Bianca "binko" Panes',
-    position: 'Secretary',
+    position: officerRoles[3],
     imgSrc: secretaryImg,
   },
 ]);
@@ -297,15 +301,15 @@ const officers = ref([
 const coordinators = ref([
   {
     name: 'John Doe',
-    position: 'Event Coordinator',
+    position: coordRoles[0],
   },
   {
     name: 'Jane Smith',
-    position: 'Community Manager',
+    position: coordRoles[1],
   },
   {
     name: 'Alex Brown',
-    position: 'Strategy Lead',
+    position: coordRoles[2],
   },
 ]);
 
