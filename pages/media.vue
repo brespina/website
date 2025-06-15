@@ -4,22 +4,22 @@
       <h1 class="text-3xl font-bold mb-6">MEDIA WALL</h1>
       <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-[#2c2c2c]" >
 
-      <!-- media tags. currently by years -->
+      <!-- media tags. currently by semesters -->
       <div class="relative">
         <div class="sticky top-0 z-10 flex justify-between gap-2 my-8">
           <div class="flex justify-start gap-2">
             <button
-              v-for="year in years"
-              :key="year"
+              v-for="semester in semesters"
+              :key="semester"
               :class="
-                selectedYear === year
+                selectedSemester === semester 
                   ? 'bg-secondary text-white'
                   : 'bg-[#2c2c2c] text-gray-400'
               "
               class="py-2 px-4 rounded hover:bg-secondary hover:text-white transition-colors duration-300"
-              @click="setYear(year)"
+              @click="setSemester(semester)"
             >
-              {{ year }}
+              {{ semester }}
             </button>
           </div>
           <!-- pagination -->
@@ -209,12 +209,12 @@ const closeExpandedImage = () => {
 
 type MediaItem = {
   id: number;
-  year: string;
+  semester: string;
   image: string;
 }
 // Reactive state
-const years = ref(['2023 - 2024', '2024 - 2025', '2025 - 2026', '2026 - 2027']);
-const selectedYear = ref('2024 - 2025');
+const semesters = ref(['Fall 2023', 'Spring 2024', 'Fall 2024', 'Spring 2025', 'Fall 2025', 'Spring 2026', 'Fall 2026', 'Spring 2027']);
+const selectedSemester = ref('Spring 2025');
 const mediaItems = ref<MediaItem[]>([]);
 const currentPage = ref(1);
 const itemsPerPage = 9;
@@ -229,45 +229,45 @@ const paginatedMedia = computed(() => {
   return mediaItems.value.slice(start, end);
 });
 
-watch(selectedYear, fetchMediaItems);
+watch(selectedSemester, fetchMediaItems);
 watch(currentPage, fetchMediaItems);
 
 // dummy data for fetching. replace with api call
 function fetchMediaItems() {
   const allMediaItems = [
-    { id: 1, year: '2023 - 2024', image: testImg },
+    { id: 1, semester: 'Fall 2023', image: testImg },
     // 19 images for testing pagination
-    { id: 2, year: '2024 - 2025', image: testImg },
-    { id: 3, year: '2024 - 2025', image: testImg },
-    { id: 4, year: '2024 - 2025', image: testImg },
-    { id: 5, year: '2024 - 2025', image: testImg },
-    { id: 6, year: '2024 - 2025', image: testImg },
-    { id: 7, year: '2024 - 2025', image: testImg },
-    { id: 8, year: '2024 - 2025', image: testImg },
-    { id: 9, year: '2024 - 2025', image: testImg },
-    { id: 10, year: '2024 - 2025', image: testImg },
-    { id: 11, year: '2024 - 2025', image: testImg2 },
-    { id: 12, year: '2024 - 2025', image: testImg },
-    { id: 13, year: '2024 - 2025', image: testImg2 },
-    { id: 14, year: '2024 - 2025', image: testImg },
-    { id: 15, year: '2024 - 2025', image: testImg2 },
-    { id: 16, year: '2024 - 2025', image: testImg2 },
-    { id: 17, year: '2024 - 2025', image: testImg2 },
-    { id: 18, year: '2024 - 2025', image: testImg },
-    { id: 19, year: '2024 - 2025', image: testImg },
-    { id: 20, year: '2024 - 2025', image: testImg3 },
-    { id: 21, year: '2025 - 2026', image: testImg2 },
-    { id: 22, year: '2026 - 2027', image: testImg3 },
+    { id: 2, semester: 'Spring 2024', image: testImg },
+    { id: 3, semester: 'Fall 2024', image: testImg },
+    { id: 4, semester: 'Spring 2025', image: testImg },
+    { id: 5, semester: 'Spring 2025', image: testImg },
+    { id: 6, semester: 'Spring 2025', image: testImg },
+    { id: 7, semester: 'Spring 2025', image: testImg },
+    { id: 8, semester: 'Spring 2025', image: testImg },
+    { id: 9, semester: 'Spring 2025', image: testImg },
+    { id: 10, semester: 'Spring 2025', image: testImg },
+    { id: 11, semester: 'Spring 2025', image: testImg2 },
+    { id: 12, semester: 'Spring 2025', image: testImg },
+    { id: 13, semester: 'Spring 2025', image: testImg2 },
+    { id: 14, semester: 'Spring 2025', image: testImg },
+    { id: 15, semester: 'Spring 2025', image: testImg2 },
+    { id: 16, semester: 'Spring 2025', image: testImg2 },
+    { id: 17, semester: 'Spring 2025', image: testImg2 },
+    { id: 18, semester: 'Spring 2025', image: testImg },
+    { id: 19, semester: 'Spring 2025', image: testImg },
+    { id: 20, semester: 'Spring 2025', image: testImg3 },
+    { id: 21, semester: 'Fall 2025', image: testImg2 },
+    { id: 22, semester: 'Spring 2026', image: testImg3 },
   ];
 
   mediaItems.value = allMediaItems.filter(
-    (media) => media.year === selectedYear.value
+    (media) => media.semester === selectedSemester.value
   );
 }
 
 // set default
-function setYear(year: string) {
-  selectedYear.value = year;
+function setSemester(semester: string) {
+  selectedSemester.value = semester;
   currentPage.value = 1;
 }
 
